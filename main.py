@@ -7,6 +7,12 @@ import dateutil.parser
 app = Flask(__name__)
 app.static_folder = 'static'
 
+# api_key = 'HKGMSz75AUwxbd6hbpBRYk5cp5r5GIpM'
+# api_key = 'OoqJoSHqyZNGoATKMnYK3YWfdTUKIWB1'
+api_key = 'izOib0sas1iHtJoPXsiUZz3DYcOl9KIw'
+# api_key = 'IKCaPz38UVKyCpkIrshm6DqERLg6AifD'
+# api_key = 'qCQKOmVhbQy19Jo7esiUyC1LlcRzc4a4'
+
 weather_codes={}
 
 weather_codes[3002] = ['Strong Wind','strong_wind.svg']
@@ -110,116 +116,20 @@ def fetch_weather_data():
 
     return jsonify(data)
 
-@app.route('/results', methods=['POST'])
-def render_results():
-    cuurentLocationEnabled = 'location' in request.form
-
-    latitude = ''
-    longitude = ''
-    address = ''
-    if(cuurentLocationEnabled == False):
-        street = request.form['street'].replace(" ", "+")
-        city = request.form['city'].replace(" ", "+")
-        state = request.form['state']
-        address = street + '+' + city + '+' + state
-    
-        geocoding_api = "https://maps.googleapis.com/maps/api/geocode/json?address="+address+"&key=AIzaSyA69ez0zZevTG9TC3lfhgtXecbmB0JAgG8"
-        response = requests.get(geocoding_api)
-        response_info = json.loads(response.text)
-        latitude = response_info['results'][0]['geometry']['location']['lat']
-        longitude = response_info['results'][0]['geometry']['location']['lng']
-
-        address = request.form['street'] + ' ' + request.form['city'] + ', ' + state + ', ' + 'US'
-    else:
-        location = request.form['location']
-        location = json.loads(location)
-        city = location['city']
-        state = location['region']
-        postal = location['postal']
-        country = location['country']
-
-        address = city + ', ' + state +' ' +postal + ', ' + country
-
-        latitude = location['loc'].split(',')[0]
-        longitude = location['loc'].split(',')[0]
-    
-    weather_current = get_weather_current(str(latitude),str(longitude))
-    weather_forecast = get_weather_forecast(str(latitude),str(longitude))
-
-    weather_current = weather_current['data']['timelines'][0]['intervals']
-    weather_forecast = weather_forecast['data']['timelines'][0]['intervals']
-
-    for forecast in weather_forecast:
-        forecast['Date'] = dateutil.parser.isoparse(forecast['startTime']).strftime('%A, %d %B %Y')
-
-    # # return redirect(url_for('weather_dashboard', weather=weather),code=307)
-    weather_forecast_obj = json.dumps(weather_forecast)
-
-    return render_template('home.html', weather_current = weather_current, weather_forecast = weather_forecast, weather_forecast_obj = weather_forecast_obj,address=address, weather_codes=weather_codes, latitude=latitude, longitude=longitude)
-
-
 def get_weather_current(lat,lng):
-    # api_key = 'HKGMSz75AUwxbd6hbpBRYk5cp5r5GIpM'
-    # api_key = 'OoqJoSHqyZNGoATKMnYK3YWfdTUKIWB1'
-    api_key = 'izOib0sas1iHtJoPXsiUZz3DYcOl9KIw'
-    # api_key = 'IKCaPz38UVKyCpkIrshm6DqERLg6AifD'
-    # api_key = 'qCQKOmVhbQy19Jo7esiUyC1LlcRzc4a4'
-
     api_url = "https://api.tomorrow.io/v4/timelines?location="+lat+","+lng+"&fields=temperature,temperatureApparent,temperatureMin,temperatureMax,windSpeed,windDirection,humidity,pressureSeaLevel,uvIndex,weatherCode,precipitationProbability,precipitationType,visibility,cloudCover&timesteps=current&units=metric&timezone=America/Los_Angeles&apikey="+ api_key
     r = requests.get(api_url)
     return r.json()
 
 def get_weather_forecast(lat,lng):
-    # api_key = 'HKGMSz75AUwxbd6hbpBRYk5cp5r5GIpM'
-    # api_key = 'OoqJoSHqyZNGoATKMnYK3YWfdTUKIWB1'
-    api_key = 'izOib0sas1iHtJoPXsiUZz3DYcOl9KIw'
-    # api_key = 'IKCaPz38UVKyCpkIrshm6DqERLg6AifD'
-    # api_key = 'qCQKOmVhbQy19Jo7esiUyC1LlcRzc4a4'
-
-
     api_url = "https://api.tomorrow.io/v4/timelines?location="+lat+","+lng+"&fields=temperature,temperatureApparent,temperatureMin,temperatureMax,windSpeed,windDirection,humidity,pressureSeaLevel,uvIndex,weatherCode,precipitationProbability,precipitationType,sunriseTime,sunsetTime,visibility,moonPhase,cloudCover&timesteps=1d&units=metric&timezone=America/Los_Angeles&apikey=" + api_key
     r = requests.get(api_url)
     return r.json()
 
 def get_hourly_data(lat,lng):
-    # api_key = 'HKGMSz75AUwxbd6hbpBRYk5cp5r5GIpM'
-    # api_key = 'OoqJoSHqyZNGoATKMnYK3YWfdTUKIWB1'
-    api_key = 'izOib0sas1iHtJoPXsiUZz3DYcOl9KIw'
-    # api_key = 'IKCaPz38UVKyCpkIrshm6DqERLg6AifD'
-    # api_key = 'qCQKOmVhbQy19Jo7esiUyC1LlcRzc4a4'
-    
     api_url = "https://api.tomorrow.io/v4/timelines?location="+lat+","+lng+"&fields=temperature,temperatureApparent,temperatureMin,temperatureMax,windSpeed,windDirection,humidity,pressureSeaLevel,uvIndex,weatherCode,precipitationProbability,precipitationType,visibility,cloudCover&timesteps=1h&units=metric&timezone=America/Los_Angeles&apikey=" + api_key
     r = requests.get(api_url)
     return r.json()
-
-@app.route('/result/today', methods=['POST','GET'])
-def getDayData():
-    data = request.get_json()
-
-    weather = json.loads(data['allWeather'])
-    
-    day_data={}
-
-    for detail in weather:
-        if detail['Date'] == data['Date']:
-            day_data={
-            'weather' : weather_codes[detail['values']['weatherCode']][0],
-            'weatherImg' : weather_codes[detail['values']['weatherCode']][1],
-            'date' : detail['Date'],
-            'humidity' : detail['values']['humidity'],
-            'precipitationProbability' : detail['values']['precipitationProbability'],
-            'precipitationType' : detail['values']['precipitationType'],
-            'sunriseTime' : detail['values']['sunriseTime'],
-            'sunsetTime' : detail['values']['sunsetTime'],
-            'temperatureMax' : detail['values']['temperatureMax'],
-            'temperatureMin' : detail['values']['temperatureMin'],
-            'visibility' : detail['values']['visibility'],
-            'windSpeed' : detail['values']['windSpeed']
-            }
-            break
-    # print(day_data)
-    return render_template('home.html', day_data = day_data)
-
 
 if __name__== '__main__':
     app.run()

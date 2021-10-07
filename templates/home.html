@@ -127,6 +127,9 @@
 </body>
 <script>
 
+base_url = "https://tomorrow-weather-328306.wn.r.appspot.com/"
+// base_url = "http://localhost:5000/"
+
 // reset form fields => clear form fields. 
     var clear_button = document.getElementById("form-clear");
     clear_button.onclick = function(){
@@ -184,7 +187,8 @@
             postal = location['postal'];
             region = location['region'];
             address = city + ' ' + region + ' ' + country + ' ' + postal;
-            url = `http://localhost:5000/fetch_weather_data_using_current_location?lat=${lat}&lon=${lon}&address=${address}`;
+            
+            url = base_url + `fetch_weather_data_using_current_location?lat=${lat}&lon=${lon}&address=${address}`;
             var req = new XMLHttpRequest();
             req.addEventListener("load", processWeatherDataCurrentLocation);
             req.open("GET", url);
@@ -196,7 +200,7 @@
             var street = document.getElementById('street');
             var city = document.getElementById('city');
             var state = document.getElementById('state');
-            url = `http://localhost:5000/fetch_weather_data?street=${street.value}&city=${city.value}&state=${state.value}`;
+            url = base_url + `fetch_weather_data?street=${street.value}&city=${city.value}&state=${state.value}`;
             var req = new XMLHttpRequest();
             req.addEventListener("load", processWeatherData);
             req.open("GET", url);
