@@ -1,0 +1,215 @@
+body{
+    background-color: #E8E8EB;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    font-family: sans-serif;
+    flex-direction: column;
+}
+
+.weather-card{
+    display: inline-block;
+    justify-content: center;
+    border: 1px solid black;
+    width: 38%;
+    margin: 0%;
+    margin-top: 5vh;
+    height: max-content;
+    align-self: center;
+}
+
+.weather-card-title{
+    padding: 5%;
+    background-image: url('../Images/banner.jpg');
+}
+
+.weather-card-title h2, h3{
+    margin: 0%;
+}
+
+.weather-card-form{
+    background-color: white;
+    padding: 5%;
+}
+
+.required:after {
+    content:" *";
+    color: red;
+  }
+
+  .weather-card-form-address{
+      display: flex;
+      justify-content: space-between;
+      width: 93%;
+  }
+
+  .weather-card-form-padding-in-between{
+      padding-top: 5%;;
+  }
+
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+    background-color: white;
+    height: max-content;
+    margin-top: 10vh;
+    width: 38%;
+    align-self: center;
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+  .container {
+    padding: 2px 16px;
+  }
+
+  .current-weather-details{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+  }
+
+  .current-weather-details > img{
+    height: 20%;
+    width: 20%;
+  }
+
+  .weather-forecast-card{
+    display: flex;
+    justify-content: space-around;
+    height: 10vh;
+  }
+
+  .weather-forecast-card > div, p{
+    justify-content: center;
+    align-self: center;
+    display: flex;
+  }
+
+
+  
+  .daily-weather-card-headings {
+    padding-bottom: 14px;
+    border-bottom: 1px solid white;
+    width: fit-content;
+    margin: auto;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 2em;
+  }
+  
+  .weather-charts-toggle-image {
+    text-align: center;
+    margin-top: 12px;
+    cursor: pointer;
+  }
+  
+  .weather-charts-toggle-image > img {
+    width: 40px;
+  }
+  
+  .daily-weather-card {
+    width: 38%;
+    background-image: linear-gradient(white, rgb(44, 61, 102));
+    margin: auto;
+    margin-top: 40px;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .daily-weather-card > .header {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .daily-weather-card > .header > .left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: rgb(47, 64, 105);
+  }
+  
+  .daily-weather-card > .header > .left > .date, .weather-type {
+    font-size: 1.6em;
+  }
+  
+  .daily-weather-card > .header > .left > .min-max {
+    font-size: 2.2em;
+  }
+  
+  .daily-weather-card > .header > .right > img {
+    width: 118px;
+  }
+  
+  .daily-weather-card > .body > table {
+    display: flex;
+    justify-content: center;
+    color: white;
+    margin-top: 42px;
+    margin-left: 30%;
+  }
+  
+  .daily-weather-card > .body > table td.key {
+    text-align: right;
+    font-size: 1.1em;
+    width: 7vw;
+  }
+  
+  .daily-weather-card > .body > table td.value {
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+
+
+
+  #container {
+    height: 400px;
+    max-width: 800px;
+    min-width: 380px;
+    height: 310px;
+    margin: 0 auto;
+}
+
+#loading {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.highcharts-figure, .highcharts-data-table table {
+    min-width: 350px;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #EBEBEB;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+.highcharts-data-table th {
+	font-weight: 600;
+    padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
