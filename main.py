@@ -9,9 +9,9 @@ app.static_folder = 'static'
 
 # api_key = 'HKGMSz75AUwxbd6hbpBRYk5cp5r5GIpM'
 # api_key = 'OoqJoSHqyZNGoATKMnYK3YWfdTUKIWB1'
-api_key = 'izOib0sas1iHtJoPXsiUZz3DYcOl9KIw'
+# api_key = 'izOib0sas1iHtJoPXsiUZz3DYcOl9KIw'
 # api_key = 'IKCaPz38UVKyCpkIrshm6DqERLg6AifD'
-# api_key = 'qCQKOmVhbQy19Jo7esiUyC1LlcRzc4a4'
+api_key = 'qCQKOmVhbQy19Jo7esiUyC1LlcRzc4a4'
 
 weather_codes={}
 
