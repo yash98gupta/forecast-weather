@@ -75,7 +75,7 @@ def fetch_weather_data_using_current_location():
     data['current'] = weather_current
     data['forecast'] = weather_forecast
     data['hourly'] = weather_forecast_hr
-    data['address'] = address
+    data['address'] = request.args.get('display_address');
     data['weather_codes'] = weather_codes
 
     return jsonify(data)
@@ -111,7 +111,7 @@ def fetch_weather_data():
     data['current'] = weather_current
     data['forecast'] = weather_forecast
     data['hourly'] = weather_forecast_hr
-    data['address'] = street + ' ' + city + ', ' + state + ', ' + 'US'
+    data['address'] = street+ ', ' + city + ', ' + state + ', ' + 'USA'
     data['weather_codes'] = weather_codes
 
     return jsonify(data)

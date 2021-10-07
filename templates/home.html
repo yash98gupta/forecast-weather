@@ -21,26 +21,26 @@
 <body>
     <div class="weather-card">
         <div class="weather-card-title">
-            <h2>Weather Search</h2>
-            <h3>Fill out the form to get weather info !</h3>
+            <h2 style="color: #5e5e5e; font-size: 1.3em;">Weather Search</h2>
+            <h3 style="color: #5e5e5e; font-size: 0.9em; font-weight: 500; margin-top: 15px;">Fill out the form to get weather info !</h3>
         </div>
         <div class="weather-card-form">
             <form onsubmit="return getWeatherInfo()" id="myForm">
-                <label for="street" class="required" style="color:rgb(31 84 213)">Street</label>
+                <label for="street" class="required formFont" style="color:#486cac">Street</label>
                 <br>
-                <input type="text" id="street" name="street" placeholder="Enter Street" required size="50">
+                <input type="text" id="street" name="street" placeholder="Enter Street" required size="63" style="color: grey; border: 1px solid #e8e8eb;">
                 <br>
                 <div class="weather-card-form-address weather-card-form-padding-in-between">
                     <div>
-                        <label for="city" class="required" style="color:rgb(31 84 213)">City</label>
+                        <label for="city" class="required formFont" style="color:#486cac">City</label>
                         <br>
-                        <input type="text" id="city" name="city" placeholder="Enter City" required size="25">
+                        <input type="text" id="city" name="city" placeholder="Enter City" required size="25" style="color: grey; border: 1px solid #e8e8eb;">
                     </div>
                     <div>
-                        <label for="state" class="required" style="color:rgb(31 84 213)">State</label>
+                        <label for="state" class="required formFont" style="color:#486cac">State</label>
                         <br>
-                        <select required name="state" id="state">
-                            <option disabled selected value> Select State</option>
+                        <select required name="state" id="state" style="color: grey;border: 1px solid #e8e8eb;">
+                            <option disabled selected value style="color: grey;"> Select State</option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
                             <option value="AZ">Arizona</option>
@@ -97,12 +97,12 @@
                 </div>
                 <hr style="margin-top: 5%;margin-bottom: 5%;border-color:rgb(31 84 213);">
                 <div style="display:flex">
-                    <span style="color:rgb(31 84 213)">Want us to auto-detect your location? Check here</span>
+                    <span style="color:#486cac; font-size: 0.88em;">Want us to auto-detect your location? Check here</span>
                     <input type="checkbox" id="location" value="location" name="location">
                 </div>
                 <div class="weather-card-form-padding-in-between">
-                    <button type="submit" style="background-color: rgb(49 86 177); color: white;height: 35px;border: 0px;">SUBMIT</button>
-                    <button id="form-clear" style="background-color: #ffbd16;color: white;height: 35px;border: 0px;">CLEAR</button>
+                    <button type="submit" style="background-color: #486cac; color: white;height: 35px;border: 0px; box-shadow: 0px 3px 0px #334b78; padding: 12px; font-size: 0.7em;font-weight: lighter;">SUBMIT</button>
+                    <button id="form-clear" style="background-color: #fdb80f; color: white;height: 35px;border: 0px; box-shadow: 0px 3px 0px #e18a40; padding: 12px; font-size: 0.7em;font-weight: lighter;">CLEAR</button>
                 </div>
             </form>
         </div>
@@ -134,16 +134,30 @@ base_url = "http://localhost:5000/"
     var clear_button = document.getElementById("form-clear");
     clear_button.onclick = function(){
         var form = document.getElementById("myForm");
+        
+        var checkbox = document.querySelector("input[name=location]");
+        if(checkbox.checked == true){
+            document.getElementById("street").disabled = false;
+            document.getElementById("city").disabled = false;
+            document.getElementById("state").disabled = false;   
+        }
+
         form.reset();
 
         component = document.getElementById("cardDetails");
-        component.childNodes[0].remove();
+        if(component.childNodes.length > 0){
+            component.childNodes[0].remove();
+        }
 
         component = document.getElementById("cardDetailsForecast");
-        component.childNodes[0].remove();
+        if(component.childNodes.length > 0){
+            component.childNodes[0].remove();
+        }
 
         component = document.getElementById("currentWeatherData");
-        component.childNodes[0].remove();
+        if(component.childNodes.length > 0){
+            component.childNodes[0].remove();
+        }
 
         component = document.getElementById("charts");
         component.style.display = "none";
@@ -191,8 +205,9 @@ base_url = "http://localhost:5000/"
             postal = location['postal'];
             region = location['region'];
             address = city + ' ' + region + ' ' + country + ' ' + postal;
+            display_address = city + ', ' + region + ' ' + postal + ', ' + 'USA'
             
-            url = base_url + `fetch_weather_data_using_current_location?lat=${lat}&lon=${lon}&address=${address}`;
+            url = base_url + `fetch_weather_data_using_current_location?lat=${lat}&lon=${lon}&address=${address}&display_address=${display_address}`;
             var req = new XMLHttpRequest();
             req.addEventListener("load", processWeatherDataCurrentLocation);
             req.open("GET", url);
@@ -220,6 +235,7 @@ base_url = "http://localhost:5000/"
         var response = JSON.parse(this.responseText);
         // console.log(response);
         currentWeatherData(response['current'],response['address'],response['weather_codes']);
+        forecastData(response['forecast'],response['weather_codes'],response['hourly']);
     }
 
     function processWeatherData(req){
@@ -237,10 +253,10 @@ base_url = "http://localhost:5000/"
                     <div style="display: flex;justify-content: space-between;">
                         <div class="current-weather-details" style="align-items: center;width: 30%;">
                             <img src = "../static/Images/${weather_codes[current[0]['values']['weatherCode']][1]}" style="width: 65%; height: 65%;"/>
-                            <p>${weather_codes[current[0]['values']['weatherCode']][0]}</p>
+                            <p style="align-self: flex-start;">${weather_codes[current[0]['values']['weatherCode']][0]}</p>
                         </div>
                         <div style="width: 100%;display: flex;justify-content: center;align-items: center;font-size: 50px;color: grey;">
-                            <p style="font-size: 80px;justify-content: flex-end;margin: 0%;margin-right: 20px;margin-bottom: 30px;">
+                            <p style="font-size: 80px;justify-content: flex-end;margin: 0%;margin-right: -30%;margin-bottom: 30px; font-size: 1.6em;font-weight: 300;color: #858585;">
                                 ${current[0]['values']['temperature']}
                                 <span>&#176;</span>
                             </p>
@@ -255,7 +271,7 @@ base_url = "http://localhost:5000/"
                         <div class="current-weather-details">
                             <p>Pressure</p>
                             <img src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-25-512.png" alt="Pressure">
-                            <p>${current[0]['values']['pressure']}</p>
+                            <p>${current[0]['values']['pressureSeaLevel']}</p>
                         </div>
                         <div class="current-weather-details">
                             <p>Wind Speed</p>
@@ -270,7 +286,7 @@ base_url = "http://localhost:5000/"
                         <div class="current-weather-details">
                             <p>Cloud Cover</p>
                             <img src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-28-512.png" alt="Cloud Cover">
-                            <p>${current[0]['values']['cloudCover']}</p>
+                            <p>${current[0]['values']['cloudCover']}%</p>
                         </div>
                         <div class="current-weather-details">
                             <p>UV Level</p>
@@ -336,6 +352,22 @@ base_url = "http://localhost:5000/"
         presentDay.style.display = "none";
         forecastList.style.display = "none";
 
+        precipitationType = parseInt(weather[i]['values']['precipitationType']);
+        console.log(precipitationType);
+        type = '';
+        if(precipitationType == 0){
+            type = 'N/A';
+        }else if(precipitationType == 1){
+            type = 'Rain';
+        }else if(precipitationType == 2){
+            type = 'Snow';
+        }else if(precipitationType == 3){
+            type = 'Freezing Rain';
+        }else if(precipitationType == 4){
+            type = 'Ice Pellets';
+        }
+
+
         var div = document.createElement('div');
         div.innerHTML = `
             <div class="daily-weather-card">
@@ -353,7 +385,7 @@ base_url = "http://localhost:5000/"
                 <table>
                 <tr>
                     <td class="key">Precipitation:</td>
-                    <td class="value">${weather[i]['values']['precipitationType']}</td>
+                    <td class="value">${type}</td>
                 </tr>
                 <tr>
                     <td class="key">Chance of Rain:</td>
@@ -447,7 +479,7 @@ base_url = "http://localhost:5000/"
             },
 
             title: {
-                text: 'Temperature variation by day'
+                text: 'Temperature Ranges (Min, Max)'
             },
 
             xAxis: {

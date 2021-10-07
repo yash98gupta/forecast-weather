@@ -489,7 +489,7 @@ function Meteogram(hourlyData, container) {
         const x = Date.parse(node[0]),
             to = x + 36e5;
   
-        if (to > pointStart + 120 * 36e5) {
+        if (to > pointStart + 24*5*36e5) {
             return;
         }
   
@@ -520,8 +520,6 @@ function Meteogram(hourlyData, container) {
             pointStart = (x + to) / 2;
         }
     });
-
-    console.log(this.temperatures);
   
     // Create the chart when the data is loaded
     this.createChart();
