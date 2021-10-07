@@ -127,8 +127,8 @@
 </body>
 <script>
 
-base_url = "https://tomorrow-weather-328306.wn.r.appspot.com/"
-// base_url = "http://localhost:5000/"
+// base_url = "https://tomorrow-weather-328306.wn.r.appspot.com/"
+base_url = "http://localhost:5000/"
 
 // reset form fields => clear form fields. 
     var clear_button = document.getElementById("form-clear");
@@ -176,6 +176,10 @@ base_url = "https://tomorrow-weather-328306.wn.r.appspot.com/"
     }
 
     function getWeatherInfo() {
+        component = document.getElementById("cardDetails");
+        if(component.childNodes.length > 0){
+            return false;
+        }
         var locationCheck = document.getElementById('location');
         if(locationCheck.checked){
             var location = JSON.parse(locationCheck.value);

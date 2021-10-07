@@ -1,5 +1,5 @@
 import requests
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, jsonify
 import json
 import dateutil.parser
 
