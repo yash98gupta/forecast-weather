@@ -101,7 +101,7 @@
                     <input type="checkbox" id="location" value="location" name="location">
                 </div>
                 <div class="weather-card-form-padding-in-between">
-                    <button type="submit" style="background-color: #486cac; color: white;height: 35px;border: 0px; box-shadow: 0px 3px 0px #334b78; padding: 12px; font-size: 0.7em;font-weight: lighter;">SUBMIT</button>
+                    <button id="submitbutton" type="submit" ondblclick="document.getElementById('submitbutton').disabled = true;" style="background-color: #486cac; color: white;height: 35px;border: 0px; box-shadow: 0px 3px 0px #334b78; padding: 12px; font-size: 0.7em;font-weight: lighter;">SUBMIT</button>
                     <button id="form-clear" style="background-color: #fdb80f; color: white;height: 35px;border: 0px; box-shadow: 0px 3px 0px #e18a40; padding: 12px; font-size: 0.7em;font-weight: lighter;">CLEAR</button>
                 </div>
             </form>
@@ -129,8 +129,8 @@
 </body>
 <script>
 
-// base_url = "https://tomorrow-weather-328306.wn.r.appspot.com/"
-base_url = "http://localhost:5000/"
+base_url = "https://tomorrow-weather-328306.wn.r.appspot.com/"
+// base_url = "http://localhost:5000/"
 
 // reset form fields => clear form fields. 
     var clear_button = document.getElementById("form-clear");
@@ -301,6 +301,10 @@ base_url = "http://localhost:5000/"
     }
 
     function currentWeatherData(current,address,weather_codes){
+        if(document.getElementById('cardDetails').childNodes.length > 0){
+            return;
+        }
+
         var div = document.createElement('div');
         div.innerHTML = `
             <div class="container" style="color: grey;font-size: 20px;">
@@ -364,6 +368,10 @@ base_url = "http://localhost:5000/"
         fData = forecast;
         weatherCodes = weather_codes;
         hData = hourlyData;
+
+        if(document.getElementById('cardDetailsForecast').childNodes.length > 0){
+            return;
+        }
 
         var div = document.createElement('div');
         div.innerHTML = `
