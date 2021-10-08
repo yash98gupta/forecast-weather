@@ -28,7 +28,7 @@
             <form onsubmit="return getWeatherInfo()" id="myForm">
                 <label for="street" class="required formFont" style="color:#486cac">Street</label>
                 <br>
-                <input type="text" id="street" name="street" placeholder="Enter Street" required size="63" style="color: grey; border: 1px solid #e8e8eb;">
+                <input type="text" id="street" name="street" placeholder="Enter Street" required size="63" style="color: grey; border: 1px solid #e8e8eb; max-width: 91.5%;">
                 <br>
                 <div class="weather-card-form-address weather-card-form-padding-in-between">
                     <div>
@@ -129,8 +129,8 @@
 </body>
 <script>
 
-base_url = "https://tomorrow-weather-328306.wn.r.appspot.com/"
-// base_url = "http://localhost:5000/"
+// base_url = "https://tomorrow-weather-328306.wn.r.appspot.com/"
+base_url = "http://localhost:5000/"
 
 // reset form fields => clear form fields. 
     var clear_button = document.getElementById("form-clear");
@@ -287,22 +287,22 @@ base_url = "https://tomorrow-weather-328306.wn.r.appspot.com/"
                         <div class="current-weather-details">
                             <p>Humidity</p>
                             <img src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-16-512.png" alt="Humidity" />
-                            <p>${current[0]['values']['humidity']}</p>
+                            <p>${current[0]['values']['humidity']}%</p>
                         </div>
                         <div class="current-weather-details">
                             <p>Pressure</p>
                             <img src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-25-512.png" alt="Pressure">
-                            <p>${current[0]['values']['pressureSeaLevel']}</p>
+                            <p>${current[0]['values']['pressureSeaLevel']}inHg</p>
                         </div>
                         <div class="current-weather-details">
                             <p>Wind Speed</p>
                             <img src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-27-512.png" alt="Wind Speed">
-                            <p>${current[0]['values']['windSpeed']}</p>
+                            <p>${current[0]['values']['windSpeed']}mph</p>
                         </div>
                         <div class="current-weather-details">
                             <p>Visibility</p>
                             <img src="https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-30-512.png" alt="Visibility">
-                            <p>${current[0]['values']['visibility']}</p>
+                            <p>${current[0]['values']['visibility']}mi</p>
                         </div>
                         <div class="current-weather-details">
                             <p>Cloud Cover</p>
@@ -531,7 +531,7 @@ base_url = "https://tomorrow-weather-328306.wn.r.appspot.com/"
             tooltip: {
                 crosshairs: true,
                 shared: true,
-                valueSuffix: '°C',
+                valueSuffix: '°F',
                 xDateFormat: '%A, %b %e'
             },
 

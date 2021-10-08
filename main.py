@@ -7,10 +7,10 @@ import dateutil.parser
 app = Flask(__name__)
 app.static_folder = 'static'
 
-api_key = 'HKGMSz75AUwxbd6hbpBRYk5cp5r5GIpM'
+# api_key = 'HKGMSz75AUwxbd6hbpBRYk5cp5r5GIpM'
 # api_key = 'OoqJoSHqyZNGoATKMnYK3YWfdTUKIWB1'
 # api_key = 'izOib0sas1iHtJoPXsiUZz3DYcOl9KIw'
-# api_key = 'IKCaPz38UVKyCpkIrshm6DqERLg6AifD'
+api_key = 'IKCaPz38UVKyCpkIrshm6DqERLg6AifD'
 # api_key = 'qCQKOmVhbQy19Jo7esiUyC1LlcRzc4a4'
 
 weather_codes={}
@@ -127,7 +127,7 @@ def fetch_weather_data():
     return jsonify(data)
 
 def get_weather_current(lat,lng):
-    api_url = "https://api.tomorrow.io/v4/timelines?location="+lat+","+lng+"&fields=temperature,temperatureApparent,temperatureMin,temperatureMax,windSpeed,windDirection,humidity,pressureSeaLevel,uvIndex,weatherCode,precipitationProbability,precipitationType,visibility,cloudCover&timesteps=current&units=metric&timezone=America/Los_Angeles&apikey="+ api_key
+    api_url = "https://api.tomorrow.io/v4/timelines?location="+lat+","+lng+"&fields=temperature,temperatureApparent,temperatureMin,temperatureMax,windSpeed,windDirection,humidity,pressureSeaLevel,uvIndex,weatherCode,precipitationProbability,precipitationType,visibility,cloudCover&timesteps=current&units=imperial&timezone=America/Los_Angeles&apikey="+ api_key
     r = requests.get(api_url)
     if r.status_code == 200:
         return r.json()
@@ -135,7 +135,7 @@ def get_weather_current(lat,lng):
         return {'error': "No Data Found"}
 
 def get_weather_forecast(lat,lng):
-    api_url = "https://api.tomorrow.io/v4/timelines?location="+lat+","+lng+"&fields=temperature,temperatureApparent,temperatureMin,temperatureMax,windSpeed,windDirection,humidity,pressureSeaLevel,uvIndex,weatherCode,precipitationProbability,precipitationType,sunriseTime,sunsetTime,visibility,moonPhase,cloudCover&timesteps=1d&units=metric&timezone=America/Los_Angeles&apikey=" + api_key
+    api_url = "https://api.tomorrow.io/v4/timelines?location="+lat+","+lng+"&fields=temperature,temperatureApparent,temperatureMin,temperatureMax,windSpeed,windDirection,humidity,pressureSeaLevel,uvIndex,weatherCode,precipitationProbability,precipitationType,sunriseTime,sunsetTime,visibility,moonPhase,cloudCover&timesteps=1d&units=imperial&timezone=America/Los_Angeles&apikey=" + api_key
     r = requests.get(api_url)
     if r.status_code == 200:
         return r.json()
@@ -143,7 +143,7 @@ def get_weather_forecast(lat,lng):
         return {'error': "No Data Found"}
 
 def get_hourly_data(lat,lng):
-    api_url = "https://api.tomorrow.io/v4/timelines?location="+lat+","+lng+"&fields=temperature,temperatureApparent,temperatureMin,temperatureMax,windSpeed,windDirection,humidity,pressureSeaLevel,uvIndex,weatherCode,precipitationProbability,precipitationType,visibility,cloudCover&timesteps=1h&units=metric&timezone=America/Los_Angeles&apikey=" + api_key
+    api_url = "https://api.tomorrow.io/v4/timelines?location="+lat+","+lng+"&fields=temperature,temperatureApparent,temperatureMin,temperatureMax,windSpeed,windDirection,humidity,pressureSeaLevel,uvIndex,weatherCode,precipitationProbability,precipitationType,visibility,cloudCover&timesteps=1h&units=imperial&timezone=America/Los_Angeles&apikey=" + api_key
     r = requests.get(api_url)
     if r.status_code == 200:
         return r.json()
