@@ -240,9 +240,7 @@ function Meteogram(hourlyData, container) {
             plotBorderWidth: 1,
             height: 310,
             alignTicks: false,
-            scrollablePlotArea: {
-                minWidth: 720
-            }
+            width: 810
         },
   
         defs: {
@@ -274,7 +272,7 @@ function Meteogram(hourlyData, container) {
         credits: {
             text: 'Forecast',
             href: '#',
-            position: {
+            position: { 
                 x: -40
             }
         },
@@ -299,6 +297,7 @@ function Meteogram(hourlyData, container) {
             maxPadding: 0,
             offset: 30,
             showLastLabel: true,
+            fontSize: 5,
             labels: {
                 format: '{value:%H}'
             },
@@ -453,8 +452,9 @@ function Meteogram(hourlyData, container) {
             color: Highcharts.getOptions().colors[1],
             lineWidth: 1.5,
             data: this.winds,
-            vectorLength: 18,
-            yOffset: -15,
+            vectorLength: 10,
+            yOffset: -10,
+            xOffset: -7,
             tooltip: {
                 valueSuffix: ' mph'
             }

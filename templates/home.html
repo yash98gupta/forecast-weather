@@ -108,13 +108,15 @@
         </div>
     </div>
 
+    <span id="errorMsg" style="display: none; margin-left: auto;margin-right: auto;margin-top: 10vh;">No Data Found !</span>
+
     <div class="card" id="cardDetails"></div>
 
     <div id="cardDetailsForecast" style="display:flex;justify-content: center;"></div>
 
     <div id="currentWeatherData"></div>
 
-    <div id="charts">
+    <div id="charts" style="display: none;">
         <figure class="highcharts-figure">
             <div id="container"></div>
         </figure>
@@ -133,6 +135,10 @@ base_url = "https://tomorrow-weather-328306.wn.r.appspot.com/"
 // reset form fields => clear form fields. 
     var clear_button = document.getElementById("form-clear");
     clear_button.onclick = function(){
+
+        errormsg = document.getElementById("errorMsg");
+        errormsg.style.display = "none"
+
         var form = document.getElementById("myForm");
         
         var checkbox = document.querySelector("input[name=location]");
@@ -233,14 +239,29 @@ base_url = "https://tomorrow-weather-328306.wn.r.appspot.com/"
 
     function processWeatherDataCurrentLocation(req){
         var response = JSON.parse(this.responseText);
-        // console.log(response);
+
+        errormsg = document.getElementById("errorMsg");
+        if(response['error']){
+            errormsg.style.display = 'block';
+            return;
+        }else{
+            errormsg.style.display = 'none';
+        }
         currentWeatherData(response['current'],response['address'],response['weather_codes']);
         forecastData(response['forecast'],response['weather_codes'],response['hourly']);
     }
 
     function processWeatherData(req){
         var response = JSON.parse(this.responseText);
-        // console.log(response);
+        
+        errormsg = document.getElementById("errorMsg");
+        if(response['error']){
+            errormsg.style.display = 'block';
+            return;
+        }else{
+            errormsg.style.display = 'none';
+        }
+
         currentWeatherData(response['current'],response['address'],response['weather_codes']);
         forecastData(response['forecast'],response['weather_codes'],response['hourly']);
     }
@@ -312,7 +333,7 @@ base_url = "https://tomorrow-weather-328306.wn.r.appspot.com/"
 
         var div = document.createElement('div');
         div.innerHTML = `
-            <div class="card" style='margin-top: 2%; background-color: rgb(79 110 172);width: 65vw'>
+            <div class="card" style='margin-top: 5%; background-color: rgb(79 110 172);width: 65vw'>
                 <div class="container weather-forecast-card">
                     <p style="width:35%">Date</p>
                     <p style="width:25%">Status</p>
@@ -461,7 +482,7 @@ base_url = "https://tomorrow-weather-328306.wn.r.appspot.com/"
             newArr = [];
             newArr.push(h[i].startTime);
             newArr.push(h[i]['values']['temperature']);
-            newArr.push(h[i]['values']['humidity']);
+            newArr.push(parseInt(h[i]['values']['humidity']));
             newArr.push(h[i]['values']['windSpeed']);
             newArr.push(h[i]['values']['windDirection']);
             newArr.push(h[i]['values']['pressureSeaLevel']);
@@ -475,6 +496,18 @@ base_url = "https://tomorrow-weather-328306.wn.r.appspot.com/"
                 scrollablePlotArea: {
                     minWidth: 600,
                     scrollPositionX: 1
+                }
+            },
+
+            plotOptions: {
+                series: {
+                    fillColor: {
+                        linearGradient: [0, 0, 0, 300],
+                        stops: [
+                            [0, Highcharts.getOptions().colors[3]],
+                            [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    }
                 }
             },
 
