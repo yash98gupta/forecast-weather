@@ -11,9 +11,9 @@ app.static_folder = 'static'
 # api_key = 'OoqJoSHqyZNGoATKMnYK3YWfdTUKIWB1'
 # api_key = 'izOibs0sas1iHtJoPXsiUZz3DYcOl9KIw'
 # api_key = 'IKCaPz38UVKyCpkIrshm6DqERLg6AifD'
-# api_key = 'qCQKOmVhbQy19Jo7esiUyC1LlcRzc4a4'
+api_key = 'qCQKOmVhbQy19Jo7esiUyC1LlcRzc4a4'
 # api_key = 'uXsESydByDLtHjgYYNcSHfEIUkKDJozE'
-api_key = 'UowumcgnE6V5EIRkOBKsq8KF8Y0oP8aX'
+# api_key = 'UowumcgnE6V5EIRkOBKsq8KF8Y0oP8aX'
 
 weather_codes={}
 
