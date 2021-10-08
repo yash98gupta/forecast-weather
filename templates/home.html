@@ -243,6 +243,24 @@ base_url = "http://localhost:5000/"
         errormsg = document.getElementById("errorMsg");
         if(response['error']){
             errormsg.style.display = 'block';
+            component = document.getElementById("cardDetails");
+            if(component.childNodes.length > 0){
+                component.childNodes[0].remove();
+            }
+
+            component = document.getElementById("cardDetailsForecast");
+            if(component.childNodes.length > 0){
+                component.childNodes[0].remove();
+            }
+
+            component = document.getElementById("currentWeatherData");
+            if(component.childNodes.length > 0){
+                component.childNodes[0].remove();
+            }
+
+            component = document.getElementById("charts");
+            component.style.display = "none";
+        
             return;
         }else{
             errormsg.style.display = 'none';
@@ -257,6 +275,22 @@ base_url = "http://localhost:5000/"
         errormsg = document.getElementById("errorMsg");
         if(response['error']){
             errormsg.style.display = 'block';
+            if(component.childNodes.length > 0){
+                component.childNodes[0].remove();
+            }
+
+            component = document.getElementById("cardDetailsForecast");
+            if(component.childNodes.length > 0){
+                component.childNodes[0].remove();
+            }
+
+            component = document.getElementById("currentWeatherData");
+            if(component.childNodes.length > 0){
+                component.childNodes[0].remove();
+            }
+
+            component = document.getElementById("charts");
+            component.style.display = "none";
             return;
         }else{
             errormsg.style.display = 'none';
